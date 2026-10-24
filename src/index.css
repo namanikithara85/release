@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ivory text-charcoal font-sans antialiased;
+    font-feature-settings: 'kern';
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-forest text-ivory;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
+    font-weight: 400;
+  }
+
+  /* Consistent, comfortable focus ring */
+  :focus-visible {
+    outline: 2px solid #BC7755;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Remove focus outline on mouse click for non-keyboard users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-eyebrow uppercase tracking-wider-2 text-terracotta-400 font-medium;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full font-sans font-medium transition-all duration-300 ease-smooth focus-visible:outline-2 focus-visible:outline-offset-[3px];
+    transition-property: background-color, color, border-color, box-shadow, transform, opacity;
+  }
+
+  .btn-primary {
+    @apply bg-forest text-ivory px-7 py-3.5 text-[0.9375rem];
+  }
+  .btn-primary:hover {
+    @apply bg-forest-700;
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    @apply bg-forest-800;
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    @apply border border-ivory/40 text-ivory px-7 py-3.5 text-[0.9375rem] backdrop-blur-[2px];
+  }
+  .btn-secondary:hover {
+    @apply border-ivory bg-ivory/10;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    @apply border border-forest/25 text-forest px-7 py-3.5 text-[0.9375rem];
+  }
+  .btn-outline:hover {
+    @apply bg-forest text-ivory border-forest;
+    transform: translateY(-1px);
+  }
+
+  .btn:disabled {
+    @apply opacity-60 cursor-not-allowed;
+    transform: none;
+  }
+
+  .link-underline {
+    @apply relative inline-block transition-colors duration-300;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-300 ease-smooth;
+  }
+  .link-underline:hover::after {
+    @apply origin-left scale-x-100;
+  }
+
+  .container-section {
+    @apply mx-auto w-full max-w-section px-6 sm:px-8 lg:px-12;
+  }
+
+  .field-label {
+    @apply block text-sm font-medium text-charcoal mb-2;
+  }
+
+  .field-input {
+    @apply w-full rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-[0.9375rem] text-charcoal placeholder:text-charcoal/40 transition-colors duration-200 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/15;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-sm text-terracotta-600;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Reveal-on-scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .animate-slow-zoom {
+    animation: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
